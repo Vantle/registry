@@ -1,0 +1,24 @@
+#!/usr/bin/env sh
+set -eu
+
+message="$1"
+first="$(sed -n '1p' "$message")"
+pattern='^(build|chore|ci|docs|feat|fix|perf|refactor|revert|style|test)(\([a-z0-9][a-z0-9.-]*\))?!?: .+'
+
+case "$first" in
+    ""|Merge\ *|Revert\ *)
+        exit 0
+        ;;
+esac
+
+if ! printf '%s\n' "$first" | grep -Eq "$pattern"
+then
+    printf '%s\n' "commit title must be conventional: type(scope): description" >&2
+    exit 1
+fi
+
+if printf '%s\n' "$first" | grep -Eiq 'wip|fixup|squash|checkpoint|temporary|progress|finally|cleanup after'
+then
+    printf '%s\n' "commit title must describe final content, not progression" >&2
+    exit 1
+fi

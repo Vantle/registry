@@ -1,0 +1,4 @@
+module(
+    name = "vantle_registry",
+    version = "0.0.0",
+)

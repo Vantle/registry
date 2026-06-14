@@ -1,0 +1,50 @@
+common --enable_bzlmod
+common --noenable_workspace
+common --incompatible_strict_action_env
+common --announce_rc
+common --enable_platform_specific_config
+common --keep_going
+common --verbose_failures
+
+
+common --show_timestamps
+common --enable_runfiles
+common --watchfs
+common --color=yes
+common --curses=no
+common --sandbox_default_allow_network=false
+common --lockfile_mode=error
+
+common --registry=file://%workspace%
+common --registry=https://bcr.bazel.build
+
+common:ci --announce_rc
+common:ci --remote_timeout=3600
+
+test --test_output=errors
+
+test --test_verbose_timeout_warnings
+test --test_output=all
+
+common:sync --fetch
+common:sync --action_env=REPIN=1
+common:sync --lockfile_mode=update
+
+
+common:debug --compilation_mode=dbg --strip=never
+common:minimal --compilation_mode=fastbuild --strip=always
+common:release --compilation_mode=opt --strip=always --linkopt=-s
+common:release --stamp
+common:stamp --stamp
+
+common --nolegacy_important_outputs
+common --workspace_status_command=platform/status.sh
+
+common:local --remote_cache=
+common:local --remote_executor=
+common:local --bes_backend=
+common:local --bes_results_url=
+
+
+try-import %workspace%/user.bazelrc
+try-import %workspace%/system.bazelrc

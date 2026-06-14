@@ -1,0 +1,6 @@
+bazel-bin
+bazel-out
+bazel-registry
+bazel-testlogs
+
+.agent/worktrees/

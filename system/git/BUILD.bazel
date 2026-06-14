@@ -1,0 +1,10 @@
+load(":rules.bzl", "command")
+
+command(
+    name = "install",
+)
+
+filegroup(
+    name = "hooks",
+    srcs = glob(["hooks/*"]),
+)

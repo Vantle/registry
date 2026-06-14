@@ -1,0 +1,22 @@
+load("//system/test:rules.bzl", "pass_test")
+
+exports_files([
+    "AGENTS.md",
+    "bazel_registry.json",
+])
+
+filegroup(
+    name = "registry",
+    srcs = glob([
+        "modules/**",
+    ]),
+    visibility = ["//visibility:public"],
+)
+
+test_suite(
+    name = "tests",
+)
+
+pass_test(
+    name = "registry_test",
+)
